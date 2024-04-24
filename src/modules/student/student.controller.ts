@@ -11,6 +11,13 @@ export class StudentController {
     constructor(private readonly studentService: StudentService) { }
 
     @UseGuards(AuthGuard, RolesGuard)
+    @Roles(['student'])
+    @Post('student')
+    create(@Body() body: any) {
+        return this.studentService.create(body);
+    }
+
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(['reviewer'])
     @Get('students')
     findAll() {
@@ -22,13 +29,6 @@ export class StudentController {
     @Get('student/:id')
     findOne(@Param('id') id: string) {
         return this.studentService.findOne(id);
-    }
-
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(['student'])
-    @Post('student')
-    create(@Body() body: any) {
-        return this.studentService.create(body);
     }
 
     @UseGuards(AuthGuard, RolesGuard)

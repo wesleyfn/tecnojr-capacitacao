@@ -7,7 +7,6 @@ export class CreateStudentDto {
     id: string
 
     @IsString({ message: 'O nome deve ser uma string.'})
-    @IsAlpha()
     @IsNotEmpty({ message: 'O nome é obrigatório.' })
     name: string
 

@@ -3,7 +3,6 @@ import { IsAlpha, IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-
 export class CreateReviewerDto {
   @IsNotEmpty({ message: 'O nome é obrigatório.' })
   @IsString({ message: 'O nome deve ser uma string.' })
-  @IsAlpha()
   name: string;
 
   @IsNotEmpty({ message: 'O email é obrigatório.' })
