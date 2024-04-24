@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { GoogleSheetsModule } from './modules/google-sheets/google-sheets.module';
 import { SolicitationModule } from './modules/solicitation/solicitation.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { config } from './config/database.config';
+import { config } from '../config/database.config'
 import { AppService } from './app.service';
 import { AdminModule } from './modules/admin/admin.module';
 import { StudentModule } from './modules/student/student.module';
