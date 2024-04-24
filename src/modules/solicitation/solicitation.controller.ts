@@ -5,8 +5,6 @@ import { UpdateSolicitationDto, UpdateSolicitationStatusDto } from './dto/update
 import { AuthGuard, RolesGuard } from '../../common/guard/auth.guard';
 import { Roles } from '../../common/decorator/roles.decorator';
 
-@UseGuards(AuthGuard, RolesGuard)
-@Roles(['admin'])
 @Controller('api')
 export class SolicitationController {
   constructor(private readonly solicitationService: SolicitationService) { }
@@ -19,33 +17,35 @@ export class SolicitationController {
   }
 
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(['reviewer'])
+  @Roles(['reviewer', 'admin'])
   @Get('solicitations')
   async findAll() {
     return await this.solicitationService.findAll();
   }
 
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(['reviewer'])
-  @Get('solicitation/:studentId')
+  @Roles(['reviewer', 'admin'])
+  @Get('student/:studentId/solicitation')
   async findByStudent(@Param('studentId') id: string) {
     return await this.solicitationService.findByStudent(id);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(['student'])
-  @Patch('solicitation/:studentId')
+  @Roles(['student', 'admin'])
+  @Patch('student/:studentId/solicitation')
   async updateByStudent(@Param('studentId') id: string, @Body() updateSolicitationDto: UpdateSolicitationDto) {
     return await this.solicitationService.updateByStudent(id, updateSolicitationDto);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(['reviewer'])
-  @Patch('solicitation/status/:studentId')
+  @Roles(['reviewer', 'admin'])
+  @Patch('student/:studentId/solicitation/status')
   async updateStatus(@Param('studentId') id: string, @Body() updateSolicitationStatusDto: UpdateSolicitationStatusDto) {
     return await this.solicitationService.updateStatus(id, updateSolicitationStatusDto);
   }
 
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(['admin'])
   @Delete('solicitation/:id')
   async remove(@Param('id') id: number) {
     return await this.solicitationService.remove(+id);

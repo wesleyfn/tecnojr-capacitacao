@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Put, UseGuards } from '@nestjs/common';
 import { GoogleSheetsService } from './google-sheets.service';
 import { AuthGuard, RolesGuard } from '../../common/guard/auth.guard'
 import { Roles } from '../../common/decorator/roles.decorator';
@@ -12,7 +12,7 @@ export class GoogleSheetsController {
     private readonly googleSheetsService: GoogleSheetsService
   ) { }
 
-  @Get('/send-data/googlesheets')
+  @Put('/send-data/googlesheets')
   async sendData() {
     return await this.googleSheetsService.sendData();
   }
