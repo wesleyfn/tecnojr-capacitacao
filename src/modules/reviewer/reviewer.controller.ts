@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ReviewerService } from './reviewer.service';
 import { CreateReviewerDto } from './dto/create-reviewer.dto';
 import { UpdateReviewerDto } from './dto/update-reviewer.dto';
-import { AuthGuard, RolesGuard } from 'src/common/guard/auth.guard';
+import { AuthGuard } from 'src/common/guard/auth.guard';
+import { RolesGuard } from 'src/common/guard/roles.guard';
 import { Roles } from 'src/common/decorator/roles.decorator';
 
 @UseGuards(AuthGuard, RolesGuard)

@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Put, Param, Delete, Req, UseGuards 
 import { SolicitationService } from './solicitation.service';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateSolicitationDto, UpdateSolicitationStatusDto } from './dto/update-solicitation.dto';
-import { AuthGuard, RolesGuard } from '../../common/guard/auth.guard';
+import { AuthGuard } from '../../common/guard/auth.guard';
+import { RolesGuard } from '../../common/guard/roles.guard';
 import { Roles } from '../../common/decorator/roles.decorator';
 
 @Controller('api')
