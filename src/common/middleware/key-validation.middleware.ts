@@ -9,7 +9,7 @@ export class KeyValidationMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const key = req.query.key;
 
-    if (key !== this.configService.get('ADMIN_KEY')) {
+    if (key !== this.configService.get('ACCESS_ADMIN_KEY')) {
       throw new UnauthorizedException('Chave inválida.');
     }
 
