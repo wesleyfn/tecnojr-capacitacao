@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Put, Param, Delete, Req, UseGuards } from '@nestjs/common';
 import { SolicitationService } from './solicitation.service';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateSolicitationDto, UpdateSolicitationStatusDto } from './dto/update-solicitation.dto';
@@ -42,6 +42,13 @@ export class SolicitationController {
   @Patch('student/:studentId/solicitation/status')
   async updateStatus(@Param('studentId') id: string, @Body() updateSolicitationStatusDto: UpdateSolicitationStatusDto) {
     return await this.solicitationService.updateStatus(id, updateSolicitationStatusDto);
+  }
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(['reviewer', 'admin'])
+  @Put('solicitations/status')
+  async updateAllStatus(@Body() updateSolicitationStatusDto: UpdateSolicitationStatusDto) {
+    return await this.solicitationService.updateAllStatus(updateSolicitationStatusDto);
   }
 
   @UseGuards(AuthGuard, RolesGuard)

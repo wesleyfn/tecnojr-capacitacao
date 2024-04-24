@@ -64,6 +64,11 @@ export class SolicitationService {
     return { message: `O status da solicitação foi atualizado com sucesso.` };
   }
 
+  async updateAllStatus(updateSolicitationStatusDto: UpdateSolicitationStatusDto) {
+    await this.solicitationRepository.update({}, updateSolicitationStatusDto);
+    return { message: `O status de todas as solicitações foi atualizado com sucesso.` };
+  }
+
   async remove(id: number) {
     await this.findOne(id);
 
