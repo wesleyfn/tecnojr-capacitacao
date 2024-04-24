@@ -8,48 +8,48 @@ import { Roles } from '../decorator/roles.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(
-        private readonly jwtService: JwtService,
-        private readonly configService: ConfigService,
-    ) { }
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) { }
 
-    async canActivate(context: ExecutionContext): Promise<boolean> {
-        const request = context.switchToHttp().getRequest();
-        const token = this.extractTokenFromHeader(request);
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    const token = this.extractTokenFromHeader(request);
 
-        if (!token)
-            throw new UnauthorizedException('Você não está autenticado.');
+    if (!token)
+      throw new UnauthorizedException('Você não está autenticado.');
 
-        const secretKey = this.configService.get('SECRET_KEY');
-        const decodedToken = this.jwtService.verify(token, { secret: secretKey });
+    const secretKey = this.configService.get('SECRET_KEY');
+    const decodedToken = this.jwtService.verify(token, { secret: secretKey });
 
-        request.user = decodedToken;
-        return true;
-    }
+    request.user = decodedToken;
+    return true;
+  }
 
-    private extractTokenFromHeader(request: Request): string | undefined {
-        const [type, token] = request.headers['authorization']?.split(' ') ?? [];
-        return type === 'Bearer' ? token : undefined;
-    }
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers['authorization']?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
+  }
 }
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-    constructor(private reflector: Reflector) { }
+  constructor(private reflector: Reflector) { }
 
-    canActivate(context: ExecutionContext): boolean {
-        const roles = this.reflector.getAllAndMerge(Roles, [context.getHandler(), context.getClass()]);
+  canActivate(context: ExecutionContext): boolean {
+    const roles = this.reflector.getAllAndMerge(Roles, [context.getHandler(), context.getClass()]);
 
-        // Se não houver roles, significa que qualquer usuário pode acessar a rota
-        if (!roles) return true;
+    // Se não houver roles, significa que qualquer usuário pode acessar a rota
+    if (!roles) return true;
 
-        const request = context.switchToHttp().getRequest();
-        const user = request.user;
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
 
-        // Verifica se o usuário tem a role necessária para acessar a rota
-        if (roles.includes(user.role))
-            return true;
-        else 
-            throw new UnauthorizedException('Você não tem permissão.');
-    }
+    // Verifica se o usuário tem a role necessária para acessar a rota
+    if (roles.includes(user.role))
+      return true;
+    else
+      throw new UnauthorizedException('Você não tem permissão.');
+  }
 }

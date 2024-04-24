@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Solicitation } from '../solicitation/entities/solicitation.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Solicitation])],
-    controllers: [GoogleSheetsController],
-    providers: [GoogleSheetsService],
-    exports: [GoogleSheetsService],
+  imports: [TypeOrmModule.forFeature([Solicitation])],
+  controllers: [GoogleSheetsController],
+  providers: [GoogleSheetsService],
+  exports: [GoogleSheetsService],
 })
-export class GoogleSheetsModule {}
+export class GoogleSheetsModule { }

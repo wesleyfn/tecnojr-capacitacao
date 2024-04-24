@@ -6,6 +6,6 @@ import { IsEnum } from 'class-validator';
 export class UpdateSolicitationDto extends PartialType(CreateSolicitationDto) { }
 
 export class UpdateSolicitationStatusDto {
-    @IsEnum(SolicitationStatusEnum, { message: 'Status inválido.' })
-    status: SolicitationStatusEnum;
+  @IsEnum(SolicitationStatusEnum, { message: 'Status inválido.' })
+  status: SolicitationStatusEnum;
 }
