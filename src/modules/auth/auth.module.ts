@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AdminModule } from '../admin/admin.module';
 import { StudentModule } from '../student/student.module';
 import { ReviewerModule } from '../reviewer/reviewer.module';
+import { NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { KeyValidationMiddleware } from 'src/common/middleware/key-validation.middleware';
 
 @Module({
   imports: [
@@ -25,4 +27,10 @@ import { ReviewerModule } from '../reviewer/reviewer.module';
   controllers: [AuthController],
   providers: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(KeyValidationMiddleware)
+      .forRoutes('api/admin/login');
+  }
+}

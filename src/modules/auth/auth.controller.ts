@@ -1,13 +1,11 @@
-import { Controller, Post, Body, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { KeyValidationMiddleware } from 'src/common/middleware/key-validation.middleware';
 
 @Controller('api/')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
   
-  @UseInterceptors(KeyValidationMiddleware)
   @Post('admin/login')
   async adminLogin(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto, 'admin');
