@@ -10,6 +10,7 @@ import { Roles } from '../../common/decorator/roles.decorator';
 export class SolicitationController {
   constructor(private readonly solicitationService: SolicitationService) { }
 
+  // Rota para criar uma solicitação
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['student'])
   @Post('solicitation')
@@ -17,6 +18,7 @@ export class SolicitationController {
     return await this.solicitationService.create(createSolicitationDto, request);
   }
 
+  // Rota para listar todas as solicitações
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['reviewer', 'admin'])
   @Get('solicitations')
@@ -24,6 +26,7 @@ export class SolicitationController {
     return await this.solicitationService.findAll();
   }
 
+  // Rota para listar uma solicitação específica
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['reviewer', 'admin'])
   @Get('student/:studentId/solicitation')
@@ -31,6 +34,7 @@ export class SolicitationController {
     return await this.solicitationService.findByStudent(id);
   }
 
+  // Rota para atualizar uma solicitação
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['student', 'admin'])
   @Patch('student/:studentId/solicitation')
@@ -38,6 +42,7 @@ export class SolicitationController {
     return await this.solicitationService.updateByStudent(id, updateSolicitationDto);
   }
 
+  // Rota para atualizar o status de uma solicitação
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['reviewer', 'admin'])
   @Patch('student/:studentId/solicitation/status')
@@ -45,6 +50,7 @@ export class SolicitationController {
     return await this.solicitationService.updateStatus(id, updateSolicitationStatusDto);
   }
 
+  // Rota para atualizar o status de todas as solicitações
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['reviewer', 'admin'])
   @Put('solicitations/status')
@@ -52,6 +58,7 @@ export class SolicitationController {
     return await this.solicitationService.updateAllStatus(updateSolicitationStatusDto);
   }
 
+  // Rota para deletar uma solicitação
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(['admin'])
   @Delete('solicitation/:id')

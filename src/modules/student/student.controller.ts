@@ -10,6 +10,7 @@ import { Roles } from '../../common/decorator/roles.decorator';
 export class StudentController {
     constructor(private readonly studentService: StudentService) { }
 
+    // Rota para criar um estudante
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(['student'])
     @Post('student')
@@ -17,6 +18,7 @@ export class StudentController {
         return this.studentService.create(body);
     }
 
+    // Rota para listar todos os estudantes
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(['reviewer'])
     @Get('students')
@@ -24,6 +26,7 @@ export class StudentController {
         return this.studentService.findAll();
     }
 
+    // Rota para listar um estudante específico
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(['reviewer'])
     @Get('student/:id')
@@ -31,6 +34,7 @@ export class StudentController {
         return this.studentService.findOne(id);
     }
 
+    // Rota para atualizar um estudante
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(['student'])
     @Patch('student/:id')
@@ -38,6 +42,7 @@ export class StudentController {
         return this.studentService.update(id, body);
     }
 
+    // Rota para deletar um estudante
     @Delete('student/:id')
     remove(@Param('id') id: string) {
         return this.studentService.remove(id);

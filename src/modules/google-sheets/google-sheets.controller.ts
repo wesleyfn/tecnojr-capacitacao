@@ -13,6 +13,7 @@ export class GoogleSheetsController {
     private readonly googleSheetsService: GoogleSheetsService
   ) { }
 
+  // Rota para enviar os dados para a planilha
   @Put('/send-data/googlesheets')
   async sendData() {
     return await this.googleSheetsService.sendData();

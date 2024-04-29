@@ -20,10 +20,10 @@ import { ReviewerModule } from './modules/reviewer/reviewer.module';
 		TypeOrmModule.forRoot(config),
 		AdminModule,
 		StudentModule,
+		ReviewerModule,
 		SolicitationModule,
 		GoogleSheetsModule,
 		AuthModule,
-		ReviewerModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

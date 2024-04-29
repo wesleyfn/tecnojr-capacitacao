@@ -41,15 +41,18 @@ export class GoogleSheetsService {
   }
 
   private async getAuthSheets(): Promise<any> {
+    // Convertendo as credenciais do Google Cloud para JSON
     const credentials: JSON = JSON.parse(
       Buffer.from(this.configService.get<string>('GOOGLE_CREDENTIALS'), 'base64').toString('utf-8')
     );
 
+    // Autenticando com as credenciais do Google Cloud
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: 'https://www.googleapis.com/auth/spreadsheets'
     });
 
+    // Obtendo o cliente autenticado
     const client = await auth.getClient();
     const googleSheets = google.sheets({ version: 'v4', auth: client });
     const spreadsheetId = this.configService.get('GOOGLE_SPREADSHEET_ID');
